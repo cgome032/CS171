@@ -143,8 +143,6 @@ def corrMatrix(Dataset):
             if secondName != 'label' and firstName != 'label':
                 corr = correlation(Dataset[firstName], Dataset[secondName])
                 newRow.append(corr)
-                print(corr,end=' ')
-        print()
         cMatrix.append(newRow)
     return np.array(cMatrix)
 
@@ -155,7 +153,7 @@ plt.imshow(testMatrix,cmap='GnBu')
 
 cax = plt.axes([0.85, 0.1, 0.075, 0.8])
 plt.colorbar(cax=cax)
-plt.show
+plt.show()
 
 """
 Question 2-2
@@ -174,42 +172,32 @@ for yname in irisHeaders:
                 scatterIndex+=1
 plt.show
 
-
-
 """
 Question 3
 """
-
 def distance(x,y,p):
     totalDistance = 0
     for i,j in zip(x,y):
-        totalDistance = abs(i-j)**p
+        #print("Type of i:", type(i))
+        #print("Type of j:", type(j))
+        if type(i) is not np.float64 or type(j) is not np.float64:
+            continue
+        else:
+            totalDistance += (abs(i-j)**p)
     return totalDistance**(1/p)
 
 def createLPmatrix(Dataset,p):
     lpMatrix = []
-    for firstName in Dataset.dtype.names:
-        if firstName == 'label':
-            continue
+    for firstRow in Dataset:
         newRow = []
-        for secondName in Dataset.dtype.names:
-            if secondName != 'label' and firstName != 'label':
-                lpRow = distance(Dataset[firstName], Dataset[secondName],p)
-                newRow.append(lpRow)
-                #print(lpRow,end=' ')
-        #print()
+        for secondRow in Dataset:
+            lpRow = distance(firstRow, secondRow,p)
+            newRow.append(lpRow)
         lpMatrix.append(newRow)
     return np.array(lpMatrix)
 
 testMatrix = createLPmatrix(irisData,1)
-plt.figure(3)
-plt.imshow(testMatrix, cmap='Greys')
-cax = plt.axes([0.85, 0.1, 0.075, 0.8])
-plt.colorbar(cax=cax)
-plt.show
-
-            
-
-print("This is the distance function practice run")
-
-print(distance(setosa['sepal_length'],setosa['sepal_width'],1))
+plt.figure(3, figsize=(30,30))
+plt.imshow(testMatrix)
+plt.colorbar()
+plt.show()
