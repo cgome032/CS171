@@ -1,0 +1,1463 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Libraries used for Assignment
+1}\label{libraries-used-for-assignment-1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{math}
+          \PY{k+kn}{import} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request}
+\end{Verbatim}
+
+
+    \section{Question 0}\label{question-0}
+
+I created two separate scripts to obtain the data from UCI's Machine
+Learning repository and place it inside of a numpy data frame.\\
+I slice the dataframe into 3 different data frames based on the class
+and this helps to process it much easier.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{c+c1}{\PYZsh{} Iris Data Script}
+          \PY{n}{irisUrl} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/iris/iris.data}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{iris\PYZus{}raw\PYZus{}data} \PY{o}{=} \PY{n}{urllib}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlopen}\PY{p}{(}\PY{n}{irisUrl}\PY{p}{)}
+          \PY{n}{irisHeaders} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{irisData} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{n}{iris\PYZus{}raw\PYZus{}data}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{irisHeaders}\PY{p}{)}
+          
+          \PY{n}{setosa} \PY{o}{=} \PY{n}{irisData}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{]}
+          \PY{n}{versicolor} \PY{o}{=} \PY{n}{irisData}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]}
+          \PY{n}{virginica} \PY{o}{=} \PY{n}{irisData}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{150}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Wine Data Script}
+          \PY{n}{wineUrl}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/wine/wine.data}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{wine\PYZus{}raw\PYZus{}data} \PY{o}{=} \PY{n}{urllib}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlopen}\PY{p}{(}\PY{n}{wineUrl}\PY{p}{)}
+          \PY{n}{wineHeaders} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcalinity\PYZus{}of\PYZus{}ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnesium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total\PYZus{}phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flavanoids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nonflavanoid\PYZus{}phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proanthocyanins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color\PYZus{}intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diluted\PYZus{}wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{wineData} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{genfromtxt}\PY{p}{(}\PY{n}{wine\PYZus{}raw\PYZus{}data}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{wineHeaders}\PY{p}{)}
+          
+          \PY{n}{wine1} \PY{o}{=} \PY{n}{wineData}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{59}\PY{p}{]}
+          \PY{n}{wine2} \PY{o}{=} \PY{n}{wineData}\PY{p}{[}\PY{l+m+mi}{59}\PY{p}{:}\PY{l+m+mi}{130}\PY{p}{]}
+          \PY{n}{wine3} \PY{o}{=} \PY{n}{wineData}\PY{p}{[}\PY{l+m+mi}{130}\PY{p}{:}\PY{l+m+mi}{178}\PY{p}{]}
+\end{Verbatim}
+
+
+    \section{Question 1}\label{question-1}
+
+\subsection{Part 1}\label{part-1}
+
+I implemented a histogram function using the bar function within the
+module matplotlib.\\
+The parameters for my histogram function are the data list, the number
+of bins and the title of the figure I want to draw. I used the min and
+max function inside of the numpy modules to find the maximum and minimum
+value inside of our data list. I calculated the width for the bins that
+would help us create our range for the values. The values that fell
+within this range would be our frequency and our height of the bars. I
+compared both our lower bound and the lower bound plus the width with
+our numpy array of values to give us a boolean matrix and summed up the
+true values to obtain our frequency. I stored these frequencies in a
+list to pass through to the bar function along with the index of each
+bar.
+
+    \subsection{Part 2}\label{part-2}
+
+In the same histogram function I plotted the box-plots using the boxplot
+function inside of matplotlib. I passed the data list through the
+function and plotted it alongside the histogram. There will be a boxplot
+for each histogram I make and because of this there will be redundant
+boxplots inside of my report.
+
+    \subsection{Part 3}\label{part-3}
+
+I programmatically decided whether a histogram is symmetric or skewed by
+getting the absolute value of subtracting the mean from the median and
+comparing it to my tolerance value of 0.04
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{k}{def} \PY{n+nf}{histogram}\PY{p}{(}\PY{n}{dataArray}\PY{p}{,} \PY{n}{binSize}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Finding the minimum and maximum of our data list}
+              \PY{k}{if}\PY{p}{(}\PY{n}{text} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{text} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+              \PY{n}{arrayMin} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{dataArray}\PY{p}{)}
+              \PY{n}{arrayMax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{dataArray}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Calculating width for the bins}
+              \PY{n}{width} \PY{o}{=} \PY{p}{(}\PY{n}{arrayMax} \PY{o}{\PYZhy{}} \PY{n}{arrayMin}\PY{p}{)}\PY{o}{/}\PY{n}{binSize}
+              
+              \PY{c+c1}{\PYZsh{} Index to keep track of bar data}
+              \PY{n}{lowerBound} \PY{o}{=} \PY{n}{arrayMin}
+              \PY{n}{graphBars} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{indicies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{} Iterates throughout the data and for each bin, creates a bar to plot.}
+              \PY{k}{for} \PY{n}{bar} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{binSize}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{bar} \PY{o}{!=} \PY{n}{binSize}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                      \PY{c+c1}{\PYZsh{} Zero bar \PYZhy{} binSize\PYZhy{}1 bar is inclusive on left side and exclusive on right side}
+                      \PY{n}{frequency} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{lowerBound} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{dataArray}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataArray} \PY{o}{\PYZlt{}} \PY{n}{lowerBound}\PY{o}{+}\PY{n}{width}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                      \PY{c+c1}{\PYZsh{}print(\PYZdq{}Frequency: \PYZdq{}, frequency)}
+                      \PY{n}{graphBars}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{frequency}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{c+c1}{\PYZsh{} Middle bars are inclusive on right side and exclusive on left side}
+                      \PY{n}{frequency} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{lowerBound} \PY{o}{\PYZlt{}} \PY{n}{dataArray}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataArray} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lowerBound}\PY{o}{+}\PY{n}{width}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                      \PY{c+c1}{\PYZsh{}print(\PYZdq{}Frequency:\PYZdq{}, frequency)}
+                      \PY{n}{graphBars}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{frequency}\PY{p}{)}
+                  \PY{n}{indicies}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lowerBound}\PY{p}{)}
+                  \PY{n}{lowerBound}\PY{o}{+}\PY{o}{=}\PY{n}{width}
+                     
+                      
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dataArray}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{dataArray}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.04}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mostly Symmetric }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{text}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mostly Skewed }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{text}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{indicies}\PY{p}{,} \PY{n}{graphBars}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{arrayMin}\PY{p}{,} \PY{n}{arrayMax}\PY{p}{,}\PY{n}{width}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{dataArray}\PY{p}{,}\PY{n}{vert}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \subsection{Iris Data Set Histograms}\label{iris-data-set-histograms}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Iris Data, bin size = 5}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Setosa}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{text}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Versicolor}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Virginica}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Iris Data, bin size = 10}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Setosa}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Versicolor}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Virginica}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Iris Data, bin size = 50}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Setosa}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Versicolor}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Virginica}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Iris Data, bin size = 100}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Setosa}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Setosa Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Versicolor}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Versicolor Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Virginica}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Sepal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Length}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZus{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Virginica Petal Width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Wine Data Set Histograms}\label{wine-data-set-histograms}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Wine Data, bin size = 5}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Wine 1 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 2 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 3 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Wine Data, bin size = 10}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Wine 1 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 2 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 3 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Wine Data, bin size = 50}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Wine 1 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 2 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 3 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Function calls for Wine Data, bin size = 100}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} Wine 1 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 1 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 2 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 2 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Wine 3 histograms}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Alcohol}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic\PYZus{}acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Malic acid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{histogram}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wine 3 Ash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bimodal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Question 2, part 1}\label{question-2-part-1}
+
+\subsection{Part a}\label{part-a}
+
+I created three separate functions to compute the covariance, standard
+deviation and the correlation between two data lists. For my correlation
+function, I pass through 2 different data sets of features that would
+then determine if the features are correlated between each other.\\
+My corrMatrix function creates the correlation matrix from the dataset
+and iterates through all the attributes and creates a list from each
+attribute list. The function iterates through the dataset and calls my
+correlation function to return the correlation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Covariance function that takes in two data lists }
+          \PY{l+s+sd}{and returns the covariance between them}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{k}{def} \PY{n+nf}{covariance}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{n}{xMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{yMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+              \PY{n}{numerator} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{numerator} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{j}\PY{p}{)}
+              \PY{k}{return} \PY{p}{(}\PY{n}{numerator}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{xMean} \PY{o}{*} \PY{n}{yMean}\PY{p}{)}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Standard deviation function that takes in a data list }
+          \PY{l+s+sd}{and returns the standarid deviation}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{k}{def} \PY{n+nf}{stdDeviation}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+              \PY{n}{aMean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+              \PY{n+nb}{sum} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{:}
+                  \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+              \PY{k}{return} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n+nb}{sum} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{aMean} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Correlation function that calls the covariance function and divides it}
+          \PY{l+s+sd}{by the standard deviation of both the data lists multiplied by each other.}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{k}{def} \PY{n+nf}{correlation}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{p}{(}\PY{n}{covariance}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{stdDeviation}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{*} \PY{n}{stdDeviation}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Creates a correlation matrix between the different attributes inside}
+          \PY{l+s+sd}{of a dataset.}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{k}{def} \PY{n+nf}{corrMatrix}\PY{p}{(}\PY{n}{Dataset}\PY{p}{)}\PY{p}{:}    
+              \PY{n}{cMatrix} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{firstName} \PY{o+ow}{in} \PY{n}{Dataset}\PY{o}{.}\PY{n}{dtype}\PY{o}{.}\PY{n}{names}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{firstName} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                      \PY{k}{continue}
+                  \PY{n}{newRow} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{secondName} \PY{o+ow}{in} \PY{n}{Dataset}\PY{o}{.}\PY{n}{dtype}\PY{o}{.}\PY{n}{names}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{secondName} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PY{n}{firstName} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                          \PY{n}{corr} \PY{o}{=} \PY{n}{correlation}\PY{p}{(}\PY{n}{Dataset}\PY{p}{[}\PY{n}{firstName}\PY{p}{]}\PY{p}{,} \PY{n}{Dataset}\PY{p}{[}\PY{n}{secondName}\PY{p}{]}\PY{p}{)}
+                          \PY{n}{newRow}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{corr}\PY{p}{)}
+                  \PY{n}{cMatrix}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{newRow}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cMatrix}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part b}\label{part-b}
+
+Once the correlation matrix has been completed, I plot the correlogram
+by calling the function imshow and choose a color scheme to
+differentiate between the Iris data set and the Wine data set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Iris Data Correlation Plots}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{n}{irisMatrix} \PY{o}{=} \PY{n}{corrMatrix}\PY{p}{(}\PY{n}{irisData}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{irisMatrix}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Wine Data Correlation Plots}
+          
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{wineMatrix} \PY{o}{=} \PY{n}{corrMatrix}\PY{p}{(}\PY{n}{wineData}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wineMatrix}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part c}\label{part-c}
+
+The absolute minimum number of calls to the correlation(x,y) function in
+order to fill the matrix for: 1. Iris Data set: 16 2. Wine Data set: 169
+
+    \subsection{Part d}\label{part-d}
+
+There are correlated features in the plot and this can be useful to
+determine if a feature is unnecessary to include in the data if they are
+really correlated.
+
+    \section{Question 2, part 2}\label{question-2-part-2}
+
+\subsection{Part a}\label{part-a}
+
+I used the scatter function inside of matplotlib to create a matrix of
+scatter plots for the iris and wine data set.\\
+On each scatter plot within the matrix, I plotted all 3 different iris
+classes and 3 different wine classes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Question 2\PYZhy{}2}
+          \PY{l+s+sd}{Iris scatterplots of the features vs features}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{scatterIndex} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{yname} \PY{o+ow}{in} \PY{n}{irisHeaders}\PY{p}{:}
+              \PY{k}{if} \PY{n}{yname} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{xname} \PY{o+ow}{in} \PY{n}{irisHeaders}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{xname} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{scatterIndex}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{setosa}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{setosa}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{versicolor}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{versicolor}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{virginica}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{virginica}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{scatterIndex}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Question 2\PYZhy{}2}
+          \PY{l+s+sd}{Wine scatterplots of the features vs features}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{scatterIndex} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{yname} \PY{o+ow}{in} \PY{n}{wineHeaders}\PY{p}{:}
+              \PY{k}{if} \PY{n}{yname} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{xname} \PY{o+ow}{in} \PY{n}{wineHeaders}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{xname} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wineHeaders}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wineHeaders}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scatterIndex}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{wine1}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{wine1}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{wine2}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{wine2}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{wine3}\PY{p}{[}\PY{n}{xname}\PY{p}{]}\PY{p}{,} \PY{n}{wine3}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{n}{scatterIndex}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part b}\label{part-b}
+
+Yes there are some pairs of features that are discriminative and you can
+clearly see separation in both feature matrices. These show us the how
+different the features are and allows up to see the differences for each
+class.
+
+    \subsection{Part c}\label{part-c}
+
+Yes there are pairs of features that are non-discriminative and you can
+see no separation from the features. This does agree with the set of
+correlated features from question 1 as it shows the really correlated
+features are difficult to see separation in our feature matricies.
+
+    \section{Question 2, part 3}\label{question-2-part-3}
+
+\subsection{Part a}\label{part-a}
+
+My distance function takes in 2 data list vectors and iterates through
+each element in them to find the total distance between them. The
+parameters for my function are one data vector, one data vector and the
+value we will use for p. The distance function will iterate through both
+vectors at the same time and take the absolute difference between the
+element of x and y and then raise it to p. The sum of all the elements
+is the 1/p rooted and returned.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Question 2\PYZhy{}3}
+          
+          \PY{l+s+sd}{Distance function to compute Lp norm between two vectors}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{k}{def} \PY{n+nf}{distance}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{:}
+              \PY{n}{totalDistance} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n}{np}\PY{o}{.}\PY{n}{float64} \PY{o+ow}{or} \PY{n+nb}{type}\PY{p}{(}\PY{n}{j}\PY{p}{)} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{:}
+                      \PY{k}{continue}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{totalDistance} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{n}{j}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{p}\PY{p}{)}
+              \PY{k}{return} \PY{n}{totalDistance}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part b}\label{part-b}
+
+I created a function called createLPmatrix that I can use to propagate
+the Lp norm matrix of all my distances in the dataset. For the iris data
+set, the shape is 150 x 150. The shape of the wine data set is 178 x
+178. The parameters of my function are the Dataset you are passing
+through and the p value you will use to calculate the lp norm. I then
+create a distance matrix with all my distance values in them and use
+that distance matrix to plot
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{k}{def} \PY{n+nf}{createLPmatrix}\PY{p}{(}\PY{n}{Dataset}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{:}
+              \PY{n}{lpMatrix} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{firstRow} \PY{o+ow}{in} \PY{n}{Dataset}\PY{p}{:}
+                  \PY{n}{newRow} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{secondRow} \PY{o+ow}{in} \PY{n}{Dataset}\PY{p}{:}
+                      \PY{n}{lpRow} \PY{o}{=} \PY{n}{distance}\PY{p}{(}\PY{n}{firstRow}\PY{p}{,} \PY{n}{secondRow}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+                      \PY{n}{newRow}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lpRow}\PY{p}{)}
+                  \PY{n}{lpMatrix}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{newRow}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{lpMatrix}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part c}\label{part-c}
+
+The absolute minimum number of calls to the distance function I need to
+make to fill both matricies are: * 150 x 150 = 22500 function calls for
+the iris data set * 178 x 178 = 31684 function calls for the wine data
+set
+
+    \subsection{Part d}\label{part-d}
+
+I plotted my distance matrices using the function imshow in matplotlib
+and used different color schemes for the iris and wine data set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Iris dataset distance matrix with p=1, 150 x 150 size}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{irisMatrix} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{irisData}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{irisMatrix}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Iris dataset distance matrix with p=2, 150 x 150 size}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{irisMatrix} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{irisData}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{irisMatrix}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BuGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Wine dataset distance matrix with p=1, 178 x 178 size}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{wineMatrix} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{wineData}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wineMatrix}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Wine dataset distance matrix with p=2, 178 x 178 size}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{wineMatrix} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{wineData}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wineMatrix}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part e}\label{part-e}
+
+I created a nearestPoint function that takes in the calculated Lp norm
+distance matrix and the original data set. It iterates through the
+distance matrix by each row and finds the minimum value in each row that
+is not zero using python list comprehension. I then check this value
+against the row and find the index of it using the numpy.where function.
+Using this index I check the value at that index in the origincal data
+set against the index of the current index to see if they have the same
+label. If they do have the same label, I add one to my count value and
+after all the iterations are done I return the ratio of the same values
+to different values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{k}{def} \PY{n+nf}{nearestPoint}\PY{p}{(}\PY{n}{DistanceMatrix}\PY{p}{,} \PY{n}{Dataset}\PY{p}{)}\PY{p}{:}
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{notSame} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{distIndex} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{DistanceMatrix}\PY{p}{:}
+                  \PY{n}{minimum} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{row} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n}{i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{row} \PY{o}{==} \PY{n}{minimum}\PY{p}{)}
+                  \PY{k}{if}\PY{p}{(}\PY{n}{Dataset}\PY{p}{[}\PY{n}{distIndex}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{Dataset}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{notSame} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{n}{distIndex} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{c+c1}{\PYZsh{}print(\PYZdq{}Same class count:\PYZdq{},count)}
+              \PY{c+c1}{\PYZsh{}print(\PYZdq{}Different class count:\PYZdq{},notSame)}
+              \PY{k}{return} \PY{n}{count}\PY{o}{/}\PY{p}{(}\PY{n}{count} \PY{o}{+} \PY{n}{notSame}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \subsection{Similar classes ratios}\label{similar-classes-ratios}
+
+I call my createLPmatrix to recreate my distance matricies and call my
+nearestPoint function to determine the percentage of the same classes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Iris and wine matrix, p=1}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{irisMatrix1} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{irisData}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{wineMatrix1} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{wineData}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{irisClass1} \PY{o}{=} \PY{n}{nearestPoint}\PY{p}{(}\PY{n}{irisMatrix1}\PY{p}{,} \PY{n}{irisData}\PY{p}{)}
+          \PY{n}{wineClass1} \PY{o}{=} \PY{n}{nearestPoint}\PY{p}{(}\PY{n}{wineMatrix1}\PY{p}{,} \PY{n}{wineData}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ratio of the Iris Dataset:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{irisClass1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ratio of the Wine Dataset:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{wineClass1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The ratio of the Iris Dataset: 0.9533333333333334
+The ratio of the Wine Dataset: 0.9325842696629213
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{Iris and wine matrix, p=2}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{n}{irisMatrix2} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{irisData}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{wineMatrix2} \PY{o}{=} \PY{n}{createLPmatrix}\PY{p}{(}\PY{n}{wineData}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{irisClass2} \PY{o}{=} \PY{n}{nearestPoint}\PY{p}{(}\PY{n}{irisMatrix2}\PY{p}{,} \PY{n}{irisData}\PY{p}{)}
+          \PY{n}{wineClass2} \PY{o}{=} \PY{n}{nearestPoint}\PY{p}{(}\PY{n}{wineMatrix2}\PY{p}{,} \PY{n}{wineData}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ratio of the Iris Dataset:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{irisClass2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The ratio of the Wine Dataset:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{wineClass2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The ratio of the Iris Dataset: 0.96
+The ratio of the Wine Dataset: 0.9213483146067416
+
+    \end{Verbatim}
+
+    \section{Sources}\label{sources}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using numpy.where function correctly -
+  https://stackoverflow.com/questions/432112/is-there-a-numpy-function-to-return-the-first-index-of-something-in-an-array
+\item
+  urlib.request documentation -
+  https://docs.python.org/3/library/urllib.request.html
+\item
+  various pages for numpy - https://docs.scipy.org/doc/
+\item
+  various pages for matplotlib - https://matplotlib.org/contents.html
+\item
+  Using genfromtxt function with strings -
+  https://stackoverflow.com/questions/12319969/how-to-use-numpy-genfromtxt-when-first-column-is-string-and-the-remaining-column
+\item
+  list comprehension help -
+  http://www.secnetix.de/olli/Python/list\_comprehensions.hawk
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
